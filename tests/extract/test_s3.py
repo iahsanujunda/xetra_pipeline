@@ -65,6 +65,13 @@ class TestS3BucketConnectorCases(unittest.TestCase):
         self.assertIn(test_key1, returned_list)
         self.assertIn(test_key2, returned_list)
 
+    def test_list_files_with_prefix_non_existing_prefix(self):
+        test_prefix = 'wrong-prefix/'
+
+        returned_list = self.s3_bucket_conn.list_files_with_prefix(test_prefix)
+
+        self.assertEqual(len(returned_list), 0)
+
 
 if __name__ == '__main__':
     unittest.main()
