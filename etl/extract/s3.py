@@ -16,7 +16,7 @@ class S3BucketConnector:
                  secret_key: str,
                  endpoint: str,
                  bucket_name: str):
-        self.endpoint = endpoint,
+        self.endpoint = endpoint
         self.session = boto3.Session(
             aws_access_key_id=os.environ[access_key],
             aws_secret_access_key=os.environ[secret_key]
@@ -39,10 +39,8 @@ class S3BucketConnector:
         """
         Read csv file into pandas dataframe
         """
-        pass
 
     def write_df_to_s3(self) -> None:
         """
         Export a pandas dataframe to s3 as parquet file
         """
-        pass

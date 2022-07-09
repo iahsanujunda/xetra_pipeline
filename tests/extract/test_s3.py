@@ -49,6 +49,22 @@ class TestS3BucketConnectorCases(unittest.TestCase):
         # Tear down mock s3 services
         self.mock_s3.stop()
 
+    def test_list_files_with_prefix_return_ok(self):
+        test_prefix = 'prefix/'
+        test_key1 = f'{test_prefix}test1.csv'
+        test_key2 = f'{test_prefix}test2.csv'
+
+        csv_content = """col1,col2
+        val1,val2"""
+        self.s3_bucket_obj.put_object(Body=csv_content, Key=test_key1)
+        self.s3_bucket_obj.put_object(Body=csv_content, Key=test_key2)
+
+        returned_list = self.s3_bucket_conn.list_files_with_prefix(test_prefix)
+
+        self.assertEqual(len(returned_list), 2)
+        self.assertIn(test_key1, returned_list)
+        self.assertIn(test_key2, returned_list)
+
 
 if __name__ == '__main__':
     unittest.main()
