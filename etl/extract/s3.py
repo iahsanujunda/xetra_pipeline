@@ -28,18 +28,21 @@ class S3BucketConnector:
         )
         self._bucket = self._s3.Bucket(bucket_name)
 
-    def list_files_with_prefix(self):
+    def list_files_with_prefix(self, prefix: str) -> list[str]:
         """
-        List all files with common prefix in filename
+        List all files in S3 bucket with common prefix in filename
         """
-        pass
+        files = [obj.key for obj in self._bucket.objects.filter(Prefix=prefix)]
+        return files
 
     def read_csv_to_df(self) -> pd.DataFrame:
         """
         Read csv file into pandas dataframe
-        :return:
         """
         pass
 
-    def write_df_to_s3(self):
+    def write_df_to_s3(self) -> None:
+        """
+        Export a pandas dataframe to s3 as parquet file
+        """
         pass
